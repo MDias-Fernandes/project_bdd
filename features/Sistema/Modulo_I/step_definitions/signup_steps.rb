@@ -20,6 +20,6 @@ And(/^type valid credentials in the text boxes$/) do
 end
 
 Then(/^should be have access to the main application$/) do
-  page.has_css?(@signup.my_courses)
-  #page.has_css?('a[href="/courses/enrolled"]')
+  #page.has_css?(@signup.my_courses)
+  page.has_css?('a[href="/courses/enrolled"]')
 end
