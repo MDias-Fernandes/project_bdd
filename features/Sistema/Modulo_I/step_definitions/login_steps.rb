@@ -1,17 +1,24 @@
-Given(/^i am in the initial page$/) do
+When(/^esteja na pagina principal da aplicacao$/) do
   visit "https://letskodeit.teachable.com/"
+  @@login = LoginPage.new
+  @@login.login.click
 end
 
-And(/^type valid credentials in the text boxes$/) do |variable|
-  find(:css, "a.btn.btn-primary.pull-right.btn-lg").click
-  find(:css, "input[id=user_name]").set('User Mail')
-  find(:xpath, '//input[@name="user[email]" and @id="user_email"]').set('user_mail@yahoo.com')
-  find(:xpath, '//input[@name="user[password]" and @id="user_password"]').set('test1234567890')
-  find(:xpath, '//input[@name="user[password_confirmation]" and @id="user_password_confirmation"]').set('test1234567890')
-  find(:checkbox, 'user[agreed_to_terms]').set(true)
-  find(:xpath, '//input[@type="submit" and @name="commit"]').click
+When(/^preencha o campo de login com um email valido$/) do
+  @@login = LoginPage.new
+  @@login.user_name.set('teste@teste.com')
 end
 
-Then(/^should be have access to the main application$/) do
-  #define
+When(/^preencha o campo de senha com uma senha valida$/) do
+  @@login = LoginPage.new
+  @@login.password.set('1234567890')
 end
+
+When(/^clique no botao de login$/) do
+  @@login = LoginPage.new
+  @@login.login_btn.click
+end
+
+#Then(/^should be have access to the main application$/) do
+#  page.has_css?("a[href='/courses/enrolled']")
+#end
