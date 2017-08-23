@@ -9,10 +9,17 @@ require 'site_prism'
 
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  Capybara::Selenium::Driver.new(app, :browser => :chrome,
+  desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+    'chromeOptions' => {
+       'args' => ['--start-maximized']
+      #'args' => ['headless'] --> possibilidade de trabalhar com headless sem a necessidade do poltergeist
+    }
+    )
+  )
 end
 
 Capybara.default_driver = :selenium
-Capybara.default_max_wait_time = 60
+Capybara.default_max_wait_time = 120
 
 Capybara.app_host = "https://letskodeit.teachable.com/"

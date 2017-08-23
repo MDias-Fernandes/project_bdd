@@ -1,24 +1,33 @@
-When(/^esteja na pagina principal da aplicacao$/) do
+#login
+
+When(/^esteja na pagina principal da aplicacao para realizar login$/) do
   visit "https://letskodeit.teachable.com/"
-  @@login = LoginPage.new
-  @@login.login.click
+  @login.login.click
 end
 
 When(/^preencha o campo de login com um email valido$/) do
-  @@login = LoginPage.new
-  @@login.user_name.set('teste@teste.com')
+  @login.user_name.set('teste@teste.com')
 end
 
 When(/^preencha o campo de senha com uma senha valida$/) do
-  @@login = LoginPage.new
-  @@login.password.set('1234567890')
+  @login.password.set('1234567890')
 end
 
 When(/^clique no botao de login$/) do
-  @@login = LoginPage.new
-  @@login.login_btn.click
+  @login.login_btn.click
 end
 
-#Then(/^should be have access to the main application$/) do
-#  page.has_css?("a[href='/courses/enrolled']")
-#end
+#---------------------------------------------------------------------------------------------------------------
+#login_invalido
+
+Given(/^preencha o campo de login com um email invalido$/) do
+  @login.user_name.set('dados_invalidos@test.com')
+end
+
+Given(/^preencha o campo de senha com uma senha invalido$/) do
+  @login.password.set('senha_invalida')
+end
+
+Then(/^não devo ter acesso a tela principal da aplicacao$/) do
+  page.has_css?('.alert.alert-danger')
+end
