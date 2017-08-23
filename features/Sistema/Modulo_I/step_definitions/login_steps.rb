@@ -1,17 +1,33 @@
-Given(/^i am in the initial page$/) do
+#login
+
+When(/^esteja na pagina principal da aplicacao para realizar login$/) do
   visit "https://letskodeit.teachable.com/"
+  @login.login.click
 end
 
-And(/^type valid credentials in the text boxes$/) do |variable|
-  find(:css, "a.btn.btn-primary.pull-right.btn-lg").click
-  find(:css, "input[id=user_name]").set('User Mail')
-  find(:xpath, '//input[@name="user[email]" and @id="user_email"]').set('user_mail@yahoo.com')
-  find(:xpath, '//input[@name="user[password]" and @id="user_password"]').set('test1234567890')
-  find(:xpath, '//input[@name="user[password_confirmation]" and @id="user_password_confirmation"]').set('test1234567890')
-  find(:checkbox, 'user[agreed_to_terms]').set(true)
-  find(:xpath, '//input[@type="submit" and @name="commit"]').click
+When(/^preencha o campo de login com um email valido$/) do
+  @login.user_name.set('teste@teste.com')
 end
 
-Then(/^should be have access to the main application$/) do
-  #define
+When(/^preencha o campo de senha com uma senha valida$/) do
+  @login.password.set('1234567890')
+end
+
+When(/^clique no botao de login$/) do
+  @login.login_btn.click
+end
+
+#---------------------------------------------------------------------------------------------------------------
+#login_invalido
+
+Given(/^preencha o campo de login com um email invalido$/) do
+  @login.user_name.set('dados_invalidos@test.com')
+end
+
+Given(/^preencha o campo de senha com uma senha invalido$/) do
+  @login.password.set('senha_invalida')
+end
+
+Then(/^não devo ter acesso a tela principal da aplicacao$/) do
+  page.has_css?('.alert.alert-danger')
 end

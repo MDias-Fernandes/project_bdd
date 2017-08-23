@@ -7,4 +7,4 @@ gem 'rspec', '~> 3.6'
 gem 'rspec-expectations', '~> 3.6'
 gem 'faker'
 gem 'cpf_faker'
-
+gem 'site_prism', '~> 2.9'
